@@ -7,6 +7,8 @@ var largura
 var altura
 var larguraDoMosquito = 90
 var alturaDoMosquito = 90
+var vidas = 1
+var tempo = 10
 
 function ajustaTamanhoPalcoJogo(){  // Precisamos relacionar esta chamada ao evento onresize do body
   largura = window.innerWidth
@@ -16,12 +18,30 @@ function ajustaTamanhoPalcoJogo(){  // Precisamos relacionar esta chamada ao eve
 
 ajustaTamanhoPalcoJogo()
 
+// CRONOMETRO 
+
+  var cronometro = setInterval(function(){
+    tempo --
+
+    if(tempo == 0){
+      window.location.href = 'vitoria.html'
+    } else{
+    document.getElementById('cronometro').innerHTML = tempo 
+  }
+  },1000)
 
   function posicaoRandomica(){
 
     // remover o mosquito anterior (caso exista)
     if(document.getElementById('mosquito')){ // Para saber se existe basta realizar este teste, caso tenha, o If retornará true e portanto o JS executará o if, removendo-o. Se não, retornará null e o JS ignorará o if
       document.getElementById('mosquito').remove()
+
+      if (vidas > 3){
+        window.location.href = 'fim_de_jogo.html'
+
+      } else document.getElementById('v' + vidas).src="imagens/coracao_vazio.png" // modificando a origem da imagem do elemento HTML
+      vidas++
+
   }
 
 
@@ -42,6 +62,9 @@ ajustaTamanhoPalcoJogo()
     mosquito.style.top = posicaoY + 'px'
     mosquito.style.position = 'absolute'
     mosquito.id = 'mosquito'
+    mosquito.onclick = function(){
+      this.remove()
+    }
 
     document.body.appendChild(mosquito) // Adicionar um filho ao body
 }
