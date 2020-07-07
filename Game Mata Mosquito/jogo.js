@@ -8,7 +8,20 @@ var altura
 var larguraDoMosquito = 90
 var alturaDoMosquito = 90
 var vidas = 1
-var tempo = 10
+var tempo = 20
+var criaMosquitoTempo = 1400
+var nivel = window.location.search // diferente do href, o search retorna apenas o parametro
+nivel = nivel.replace('?', '')
+
+
+if (nivel === 'normal') {
+  criaMosquitoTempo = 1400
+} else if (nivel === 'dificil') {
+  criaMosquitoTempo = 850
+} else if (nivel === 'chucknorris'){  
+  criaMosquitoTempo = 650
+}
+
 
 function ajustaTamanhoPalcoJogo(){  // Precisamos relacionar esta chamada ao evento onresize do body
   largura = window.innerWidth
@@ -36,7 +49,7 @@ ajustaTamanhoPalcoJogo()
     if(document.getElementById('mosquito')){ // Para saber se existe basta realizar este teste, caso tenha, o If retornará true e portanto o JS executará o if, removendo-o. Se não, retornará null e o JS ignorará o if
       document.getElementById('mosquito').remove()
 
-      if (vidas > 3){
+      if (vidas > 5){
         window.location.href = 'fim_de_jogo.html'
 
       } else document.getElementById('v' + vidas).src="imagens/coracao_vazio.png" // modificando a origem da imagem do elemento HTML
